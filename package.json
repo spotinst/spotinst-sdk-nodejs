@@ -1,0 +1,38 @@
+{
+  "name": "spotinst-sdk-nodejs",
+  "version": "1.0.10",
+  "description": "Spotinst SDK node.js",
+  "scripts": {
+    "compile": "rm -rf lib; babel --presets es2015,stage-0 -d lib/ src/",
+    "prepublish": "npm run compile"
+  },
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spotinst/spotinst-sdk-nodejs.git"
+  },
+  "keywords": [
+    "spotinst",
+    "sdk",
+    "nodejs"
+  ],
+  "author": "Spotinst, Ltd <info@spotinst.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spotinst/spotinst-sdk-nodejs/issues"
+  },
+  "homepage": "https://github.com/spotinst/spotinst-sdk-nodejs#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.1.18",
+    "debug": "^2.6.3",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.1.18",
+    "babel-core": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-0": "^6.1.18"
+  }
+}
