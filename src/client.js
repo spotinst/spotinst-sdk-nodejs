@@ -47,11 +47,11 @@ export default class Client {
    */
   _newRequest(method, path, body, params = {}) {
     if (!method || !method.length) {
-      throw new Error('invalid or malformed method');
+      throw new Error('spotinst-sdk-nodejs: invalid or malformed method');
     }
 
     if (!path || !path.length) {
-      throw new Error('invalid or malformed path');
+      throw new Error('spotinst-sdk-nodejs: invalid or malformed path');
     }
 
     var options = {
