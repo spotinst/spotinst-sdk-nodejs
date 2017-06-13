@@ -13,3 +13,16 @@ client.AwsInstanceService.read({id: 'i-12345abcd'})
     console.error(err);
     // do something with err
   });
+
+client.AwsInstanceService.detach({
+    instancesToDetach: [
+        'i-12345abcd',
+    ],
+    shouldTerminateInstances: true,
+    shouldDecrementTargetCapacity: true,
+    drainingTimeout: 300,
+  })
+  .catch((err) => {
+    console.error(err);
+    // do something with err
+  });
