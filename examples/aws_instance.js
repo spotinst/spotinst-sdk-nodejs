@@ -26,3 +26,12 @@ client.AwsInstanceService.detach({
     console.error(err);
     // do something with err
   });
+
+client.AwsInstanceService.signal({
+    instanceId: 'i-12345abcd',
+    signal: 'INSTANCE_READY',
+  })
+  .catch((err) => {
+    console.error(err);
+    // do something with err
+  });
