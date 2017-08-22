@@ -19,7 +19,7 @@ export default class FunctionsService {
 			this._debug('initiating a new read request, id=', params.id);
 			if (!util.hasValidResourceId(params.id, callback, reject)) return;
 
-			const url = `${this._basePath}/${params.id}?environmentId=${params.environmentId}`;
+			const url = `${this._basePath}/${params.id}?environmentId=${params.environmentId}&accountId=${params.accountId}`;
 			const req = this._client._newRequest('GET', url);
 			this._debug('making read request');
 			this._client._requireOK(this._client._doRequest(req))
@@ -43,7 +43,7 @@ export default class FunctionsService {
 		return new Promise((resolve, reject) => {
 			this._debug('initiating a new readAll request');
 
-			const url = `${this._basePath}?environmentId=${params.environmentId}`;
+			const url = `${this._basePath}?environmentId=${params.environmentId}&accountId=${params.accountId}`;
 			const req = this._client._newRequest('GET', url);
 			this._debug('making list request');
 			this._client._requireOK(this._client._doRequest(req))
