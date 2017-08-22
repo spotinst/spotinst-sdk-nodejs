@@ -4,7 +4,7 @@ import AwsGroupService from './services/aws_group';
 import AwsInstanceService from './services/aws_instance';
 import AwsSpotService from './services/aws_spot';
 import SubscriptionService from './services/subscription';
-import FunctionsService from './services/Functions';
+import FunctionsService from './services/functions';
 import debug from 'debug';
 
 export default class Client {
@@ -18,7 +18,7 @@ export default class Client {
     this.AwsInstanceService  = new AwsInstanceService(this);
     this.AwsSpotService      = new AwsSpotService(this);
     this.SubscriptionService = new SubscriptionService(this);
-    this.functionsService    = new FunctionsService(this);
+    this.FunctionsService    = new FunctionsService(this);
   }
 
   /**
