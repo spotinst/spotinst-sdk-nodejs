@@ -74,7 +74,59 @@ export default class FunctionsService {
 			this._client._requireOK(this._client._doRequest(req))
 				.then((res) => {
 					this._debug('promise resolved');
-					util.resolveOnSuccess(null, callback, resolve);
+					util.resolveOnSuccess(res.response.items[0], callback, resolve);
+				})
+				.catch((err) => {
+					this._debug('promise rejected', err);
+					util.rejectOnFailure(err.toString(), callback, reject);
+				});
+		});
+	}
+
+	/**
+	 * update an existing function.
+	 * @param params
+	 * @returns {Promise}
+	 */
+	update(params = {}, callback) {
+		return new Promise((resolve, reject) => {
+			if (!params.group) {
+				params = {group: {...params}};
+			}
+			this._debug('initiating a new update request, id=', params.function.id);
+			this._debug('preparing body');
+			const body = {function: Object.assign({}, params.function)};
+			delete body.function.id;
+			this._debug('body=', body);
+			const req = this._client._newRequest('PUT', `${this._basePath}/${params.function.id}`, body);
+			this._debug('making update request');
+			this._client._requireOK(this._client._doRequest(req))
+				.then((res) => {
+					this._debug('promise resolved');
+					util.resolveOnSuccess(res.response.items, callback, resolve);
+				})
+				.catch((err) => {
+					this._debug('promise rejected', err);
+					util.rejectOnFailure(err.toString(), callback, reject);
+				});
+		});
+	}
+
+	/**
+	 * delete an existing function.
+	 * @param params
+	 * @returns {Promise}
+	 */
+	delete(params = {}, callback) {
+		return new Promise((resolve, reject) => {
+			if (!util.hasValidResourceId(params.id, callback, reject)) return;
+			this._debug('initiating a new delete request, id=', params.id);
+			const req = this._client._newRequest('DELETE', `${this._basePath}/${params.id}?accountId=${params.accountId}`);
+			this._debug('making delete request');
+			this._client._requireOK(this._client._doRequest(req))
+				.then((res) => {
+					this._debug('promise resolved');
+					util.resolveOnSuccess(res.response.items, callback, resolve);
 				})
 				.catch((err) => {
 					this._debug('promise rejected', err);
