@@ -22,7 +22,7 @@ export default class Request {
 
   /**
    * toHTTP converts the request to an HTTP request.
-   * @returns {{method: string, uri: string, headers: ...}
+   * @returns {method: string, uri: string, headers: ...}
    * @private
    */
   _toHTTP() {
