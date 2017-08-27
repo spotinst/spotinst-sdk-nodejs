@@ -90,8 +90,8 @@ export default class FunctionsService {
 	 */
 	update(params = {}, callback) {
 		return new Promise((resolve, reject) => {
-			if (!params.group) {
-				params = {group: {...params}};
+			if (!params.function) {
+				params = {function: {...params}};
 			}
 			this._debug('initiating a new update request, id=', params.function.id);
 			this._debug('preparing body');
