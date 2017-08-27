@@ -98,7 +98,7 @@ export default class FunctionsService {
 			const body = {function: Object.assign({}, params.function)};
 			delete body.function.id;
 			this._debug('body=', body);
-			const req = this._client._newRequest('PUT', `${this._basePath}/${params.function.id}`, body);
+			const req = this._client._newRequest('PUT', `${this._basePath}/${params.function.id}?accountId=${body.function.accountId}`, body);
 			this._debug('making update request');
 			this._client._requireOK(this._client._doRequest(req))
 				.then((res) => {
