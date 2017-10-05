@@ -5,6 +5,7 @@ import AwsInstanceService from './services/aws_instance';
 import AwsSpotService from './services/aws_spot';
 import SubscriptionService from './services/subscription';
 import FunctionsService from './services/functions';
+import SpectrumService from './services/spectrum';
 import debug from 'debug';
 
 export default class Client {
@@ -19,6 +20,7 @@ export default class Client {
     this.AwsSpotService      = new AwsSpotService(this);
     this.SubscriptionService = new SubscriptionService(this);
     this.FunctionsService    = new FunctionsService(this);
+	this.SpectrumService   	 = new SpectrumService(this);
   }
 
   /**
