@@ -1,6 +1,6 @@
 {
   "name": "spotinst-sdk-nodejs",
-  "version": "1.0.24",
+  "version": "1.0.26",
   "description": "Spotinst SDK node.js",
   "scripts": {
     "compile": "rm -rf lib; babel --presets es2015,stage-0 -d lib/ src/",
