@@ -7,6 +7,8 @@ export default class FunctionsService {
 		this._debug    = debug(`${SDKName}:functions`);
 		this._client   = client;
 		this._basePath = '/functions/function';
+
+		console.log(this._client)
 	}
 
 	/**
