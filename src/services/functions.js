@@ -7,8 +7,6 @@ export default class FunctionsService {
 		this._debug    = debug(`${SDKName}:functions`);
 		this._client   = client;
 		this._basePath = '/functions/function';
-
-		console.log(this._client)
 	}
 
 	/**
@@ -135,5 +133,33 @@ export default class FunctionsService {
 					util.rejectOnFailure(err.toString(), callback, reject);
 				});
 		});
+	}
+
+	/**
+	 * getting logs of afunction.
+	 * @param params
+	 * @returns {Promise}
+	*/
+	logs(params = {}, callback){
+		let startTime;
+		if(params['function'].startTime){
+			startTime = params['function'].startTime
+		}else{
+			startTime = new Date(Date.now() - 5*(60000))
+		}
+		return new Promise((resolve, reject)=>{
+			this._debug('initiating get logs request')
+			const req = this._client._newRequest('GET', `${this._basePath}/log?from=${startTime.getTime()}&to=${Date.now()}&accountId=${params['function'].accountId}&functionId=${params['function'].functionId}`);
+			this._debug('making get request')
+			this._client._requireOK(this._client._doRequest(req))
+				.then((res)=>{
+					this._debug('promise resolved');
+					util.resolveOnSuccess(res.response.items, callback, resolve);
+				})
+				.catch((err)=>{
+					this._debug('promise rejected', err);
+					util.rejectOnFailure(err.toString(), callback, reject);
+				})
+		})
 	}
 }
