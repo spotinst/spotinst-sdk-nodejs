@@ -1,11 +1,11 @@
-import { SDKName } from '../config';
+import {SDKName} from '../config';
 import util from '../util';
 import debug from 'debug';
 
 export default class AwsGroupService {
   constructor(client) {
-    this._debug    = debug(`${SDKName}:aws_group`);
-    this._client   = client;
+    this._debug = debug(`${SDKName}:aws_group`);
+    this._client = client;
     this._basePath = '/aws/ec2/group';
   }
 
@@ -66,7 +66,7 @@ export default class AwsGroupService {
    */
   read(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.hasValidResourceId(params.id, callback, reject)) return;
+      if (!util.isValid('id', params.id, callback, reject)) return;
       this._debug('initiating a new read request, id=', params.id);
       const req = this._client._newRequest('GET', `${this._basePath}/${params.id}`);
       this._debug('making read request');
@@ -118,7 +118,7 @@ export default class AwsGroupService {
    */
   delete(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.hasValidResourceId(params.id, callback, reject)) return;
+      if (!util.isValid('id', params.id, callback, reject)) return;
       this._debug('initiating a new delete request, id=', params.id);
       const req = this._client._newRequest('DELETE', `${this._basePath}/${params.id}`);
       this._debug('making delete request');
@@ -141,7 +141,7 @@ export default class AwsGroupService {
    */
   status(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.hasValidResourceId(params.id, callback, reject)) return;
+      if (!util.isValid('id', params.id, callback, reject)) return;
       this._debug('initiating a new status request, id=', params.id);
       const req = this._client._newRequest('GET', `${this._basePath}/${params.id}/status`);
       this._debug('making status request');

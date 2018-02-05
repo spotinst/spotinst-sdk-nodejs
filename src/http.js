@@ -1,4 +1,4 @@
-import { SDKName } from './config';
+import {SDKName} from './config';
 import request from 'request-promise';
 import debug from 'debug';
 
