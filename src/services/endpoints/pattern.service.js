@@ -1,25 +1,24 @@
-import { SDKName } from '../config';
-import util from '../util';
+import { SDKName } from '../../config';
+import util from '../../util';
 import debug from 'debug';
 
-export default class FunctionsService {
+export default class SpectrumEventsService {
 	constructor(client) {
-		this._debug    = debug(`${SDKName}:functions`);
+		this._debug    = debug(`${SDKName}:spectrum:events`);
 		this._client   = client;
-		this._basePath = '/functions/function';
+		this._basePath = '/functions/pattern';
 	}
-
+	
 	/**
-	 * read describes a specific function.
+	 * read describes a specific endpoint.
 	 * @param params
 	 * @returns {Promise}
 	 */
 	read(params = {}, callback) {
 		return new Promise((resolve, reject) => {
-			this._debug('initiating a new read request, id=', params.id);
-			if (!util.hasValidResourceId(params.id, callback, reject)) return;
+			this._debug('initiating a new read request, id=', params.resourceId);
 
-			const url = `${this._basePath}/${params.id}?environmentId=${params.environmentId}&accountId=${params.accountId}`;
+			const url = `${this._basePath}/${params.patternId}?accountId=${params.accountId}`;
 			const req = this._client._newRequest('GET', url);
 			this._debug('making read request');
 			this._client._requireOK(this._client._doRequest(req))
@@ -35,15 +34,14 @@ export default class FunctionsService {
 	}
 
 	/**
-	 * readAll describes a list of functions.
+	 * readAll describes a list of endpoint.
 	 * @param params
 	 * @returns {Promise}
 	 */
 	list(params = {}, callback) {
 		return new Promise((resolve, reject) => {
 			this._debug('initiating a new readAll request');
-
-			const url = `${this._basePath}?environmentId=${params.environmentId}&accountId=${params.accountId}`;
+			const url = `${this._basePath}?accountId=${params.accountId}&environmentId=${params.environmentId}`;
 			const req = this._client._newRequest('GET', url);
 			this._debug('making list request');
 			this._client._requireOK(this._client._doRequest(req))
@@ -59,18 +57,18 @@ export default class FunctionsService {
 	}
 
 	/**
-	 * create a function.
+	 * create a endpoint.
 	 * @param params
 	 * @returns {Promise}
 	 */
 	create(params = {}, callback) {
 		return new Promise((resolve, reject) => {
-			this._debug('initiating a new create function request, params=', params);
+			this._debug('initiating a new create job request, params=', params);
 			this._debug('preparing body');
-			const body = Object.assign({}, params);
+			const body = {pattern: Object.assign({}, params)};
 			this._debug('body=', body);
-			const req = this._client._newRequest('POST', `${this._basePath}?accountId=${body.function.accountId}`, body);
-			this._debug('making create function request');
+			const req = this._client._newRequest('POST', `${this._basePath}?accountId=${params.accountId}`, body);
+			this._debug('making create job request');
 			this._client._requireOK(this._client._doRequest(req))
 				.then((res) => {
 					this._debug('promise resolved');
@@ -84,21 +82,20 @@ export default class FunctionsService {
 	}
 
 	/**
-	 * update an existing function.
+	 * update an existing endpoint.
 	 * @param params
 	 * @returns {Promise}
 	 */
 	update(params = {}, callback) {
 		return new Promise((resolve, reject) => {
-			if (!params.function) {
-				params = {function: {...params}};
-			}
-			this._debug('initiating a new update request, id=', params.function.id);
+			this._debug('initiating a new update request, id=', params.id);
 			this._debug('preparing body');
-			const body = {function: Object.assign({}, params.function)};
-			delete body.function.id;
+			const body = {pattern: Object.assign({}, params)};
 			this._debug('body=', body);
-			const req = this._client._newRequest('PUT', `${this._basePath}/${params.function.id}?accountId=${body.function.accountId}`, body);
+			delete body.pattern.accountId;
+			delete body.pattern.environmentId;
+			delete body.pattern.id;
+			const req = this._client._newRequest('PUT', `${this._basePath}/${params.id}?accountId=${params.accountId}`, body);
 			this._debug('making update request');
 			this._client._requireOK(this._client._doRequest(req))
 				.then((res) => {
@@ -113,7 +110,7 @@ export default class FunctionsService {
 	}
 
 	/**
-	 * delete an existing function.
+	 * delete an existing endpoint.
 	 * @param params
 	 * @returns {Promise}
 	 */
@@ -133,37 +130,5 @@ export default class FunctionsService {
 					util.rejectOnFailure(err.toString(), callback, reject);
 				});
 		});
-	}
-
-	/**
-	 * getting logs of afunction.
-	 * @param params
-	 * @returns {Promise}
-	*/
-	logs(params = {}, callback){
-		return new Promise((resolve, reject) => {
-			let startTime;
-			const body = {function: Object.assign({}, params.function)};
-			if (!util.hasValidResourceId(body.function.functionId, callback, reject)) return;
-			if(body.function.startTime && body.function.startTime instanceof Date){
-				startTime = body.function.startTime
-			}else{
-				startTime = new Date(Date.now() - 5*(60000))
-			}
-
-			this._debug('initiating get logs request. id=', body.function.functionId);
-
-			const req = this._client._newRequest('GET', `${this._basePath}/log?from=${startTime.getTime()}&to=${Date.now()}&accountId=${body.function.accountId}&functionId=${body.function.functionId}`);
-			this._debug('making get request');
-			this._client._requireOK(this._client._doRequest(req))
-				.then((res)=>{
-					this._debug('promise resolved');
-					util.resolveOnSuccess(res.response.items, callback, resolve);
-				})
-				.catch((err)=>{
-					this._debug('promise rejected', err);
-					util.rejectOnFailure(err.toString(), callback, reject);
-				})
-		})
 	}
 }
