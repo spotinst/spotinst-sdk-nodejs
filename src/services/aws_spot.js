@@ -1,11 +1,11 @@
-import { SDKName } from '../config';
+import {SDKName} from '../config';
 import util from '../util';
 import debug from 'debug';
 
 export default class AwsSpotService {
   constructor(client) {
-    this._debug    = debug(`${SDKName}:aws_spot`);
-    this._client   = client;
+    this._debug = debug(`${SDKName}:aws_spot`);
+    this._client = client;
     this._basePath = '/aws/ec2/spot';
   }
 
@@ -16,7 +16,7 @@ export default class AwsSpotService {
    */
   read(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.hasValidResourceId(params.id, callback, reject)) return;
+      if (!util.isValid('id', params.id, callback, reject)) return;
       this._debug('initiating a new read request, id=', params.id);
       const req = this._client._newRequest('GET', `${this._basePath}/${params.id}`);
       this._debug('making read request');

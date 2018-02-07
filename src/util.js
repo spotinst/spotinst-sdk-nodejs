@@ -1,4 +1,4 @@
-import { SDKName } from './config';
+import {SDKName} from './config';
 import debug from 'debug';
 
 class Util {
@@ -6,14 +6,14 @@ class Util {
     this._debug = debug(`${SDKName}:util`);
   }
 
-  hasValidResourceId(id, callback, reject) {
-    this._debug('validating resource id=', id);
-    if (!id || id.length === 0) {
-      const error = new Error('spotinst-sdk-nodejs: invalid or malformed resource id');
+  isValid(name, value, callback, reject) {
+    this._debug(`validating field ${name}=${value}`);
+    if (!value || value.toString().length === 0) {
+      const error = new Error(`spotinst-sdk-nodejs: invalid or missing field value (${name}=${value})`);
       this.rejectOnFailure(error.toString(), callback, reject);
       return false;
     }
-    this._debug(`resource id=${id} validated`);
+    this._debug(`field ${name}=${value} validated`);
     return true;
   }
 

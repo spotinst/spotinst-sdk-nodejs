@@ -14,7 +14,7 @@ client.SubscriptionService.list()
     // do something with err
   });
 
-client.SubscriptionService.read({id: 'sis-0398a446'})
+client.SubscriptionService.read({id: 'sis-foo'})
   .then((subscriptions) => {
     console.log(subscriptions);
     // do something with subscriptions

@@ -1,11 +1,11 @@
-import { SDKName } from '../config';
+import {SDKName} from '../config';
 import util from '../util';
 import debug from 'debug';
 
 export default class AwsInstanceService {
   constructor(client) {
-    this._debug    = debug(`${SDKName}:aws_instance`);
-    this._client   = client;
+    this._debug = debug(`${SDKName}:aws_instance`);
+    this._client = client;
     this._basePath = '/aws/ec2/instance';
   }
 
@@ -17,7 +17,7 @@ export default class AwsInstanceService {
   read(params = {}, callback) {
     return new Promise((resolve, reject) => {
       this._debug('initiating a new read request, id=', params.id);
-      if (!util.hasValidResourceId(params.id, callback, reject)) return;
+      if (!util.isValid('id', params.id, callback, reject)) return;
       const req = this._client._newRequest('GET', `${this._basePath}/${params.id}`);
       this._debug('making read request');
       this._client._requireOK(this._client._doRequest(req))
@@ -56,7 +56,7 @@ export default class AwsInstanceService {
         });
     });
   }
-  
+
   /**
    * signal notifies about the state of a specific instance.
    * @param params
