@@ -2,9 +2,9 @@ import { SDKName } from '../../config';
 import util from '../../util';
 import debug from 'debug';
 
-export default class SpectrumEventsService {
+export default class EndpointEventsService {
 	constructor(client) {
-		this._debug    = debug(`${SDKName}:spectrum:events`);
+		this._debug    = debug(`${SDKName}:endpoint:pattern`);
 		this._client   = client;
 		this._basePath = '/functions/pattern';
 	}
@@ -116,7 +116,7 @@ export default class SpectrumEventsService {
 	 */
 	delete(params = {}, callback) {
 		return new Promise((resolve, reject) => {
-			if (!util.hasValidResourceId(params.id, callback, reject)) return;
+			if (!util.isValid("endpoint ID",params.id, callback, reject)) return;
 			this._debug('initiating a new delete request, id=', params.id);
 			const req = this._client._newRequest('DELETE', `${this._basePath}/${params.id}?accountId=${params.accountId}`);
 			this._debug('making delete request');

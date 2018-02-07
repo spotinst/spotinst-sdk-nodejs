@@ -144,7 +144,7 @@ export default class FunctionsService {
 		return new Promise((resolve, reject) => {
 			let startTime;
 			const body = {function: Object.assign({}, params.function)};
-			if (!util.hasValidResourceId(body.function.functionId, callback, reject)) return;
+			if (!util.isValid("fuction ID", body.function.functionId, callback, reject)) return;
 			if(body.function.startTime && body.function.startTime instanceof Date){
 				startTime = body.function.startTime
 			}else{
