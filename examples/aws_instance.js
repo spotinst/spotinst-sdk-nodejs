@@ -4,7 +4,7 @@ const client = new Client(...[
   config.setToken('foo'),
 ]);
 
-client.AwsInstanceService.read({id: 'i-12345abcd'})
+client.AwsInstanceService.read({id: 'i-foo'})
   .then((instances) => {
     console.log(instances);
     // do something with instances
@@ -16,7 +16,7 @@ client.AwsInstanceService.read({id: 'i-12345abcd'})
 
 client.AwsInstanceService.detach({
     instancesToDetach: [
-        'i-12345abcd',
+        'i-foo',
     ],
     shouldTerminateInstances: true,
     shouldDecrementTargetCapacity: true,
@@ -28,7 +28,7 @@ client.AwsInstanceService.detach({
   });
 
 client.AwsInstanceService.signal({
-    instanceId: 'i-12345abcd',
+    instanceId: 'i-foo',
     signal: 'INSTANCE_READY',
   })
   .catch((err) => {

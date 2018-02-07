@@ -4,7 +4,7 @@ const client = new Client(...[
   config.setToken('foo'),
 ]);
 
-client.AwsSpotService.read({id: 'sir-12345abcd'})
+client.AwsSpotService.read({id: 'sir-foo'})
   .then((spots) => {
     console.log(spots);
     // do something with spots
