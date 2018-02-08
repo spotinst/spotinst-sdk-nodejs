@@ -135,22 +135,21 @@ export default class FunctionsService {
     });
   }
 
-  /**
-   * getting logs of afunction.
-   * @param params
-   * @returns {Promise}
-   */
-  logs(params = {}, callback) {
-    return new Promise((resolve, reject) => {
-      let startTime;
-      const body = {function: Object.assign({}, params.function)};
-
-      if (!util.hasValidResourceId(body.function.functionId, callback, reject)) return;
-      if (body.function.startTime && body.function.startTime instanceof Date) {
-        startTime = body.function.startTime
-      } else {
-        startTime = new Date(Date.now() - 5 * (60000))
-      }
+	/**
+	 * getting logs of afunction.
+	 * @param params
+	 * @returns {Promise}
+	*/
+	logs(params = {}, callback){
+		return new Promise((resolve, reject) => {
+			let startTime;
+			const body = {function: Object.assign({}, params.function)};
+			if (!util.isValid("fuction ID", body.function.functionId, callback, reject)) return;
+			if(body.function.startTime && body.function.startTime instanceof Date){
+				startTime = body.function.startTime
+			}else{
+				startTime = new Date(Date.now() - 5*(60000))
+			}
 
       this._debug('initiating get logs request. id=', body.function.functionId);
 
