@@ -1,4 +1,4 @@
-import EventsService from './events.service';
+import EventsService from './events';
 
 export default class SpectrumService {
   constructor(client) {
