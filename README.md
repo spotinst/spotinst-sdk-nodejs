@@ -2,7 +2,7 @@
 
 A Node.js client library for accessing the Spotinst API.
 
-You can view Spotinst API docs [here](http://help.spotinst.com/api/).
+You can view Spotinst API docs [here](https://api.spotinst.com/).
 
 ## Installation
 
@@ -89,7 +89,7 @@ client.AwsGroupService.read({id: 'sig-bar'}, (err, groups) => {
 
 ## Documentation
 
-For a comprehensive list of examples, check out the [API documentation](http://help.spotinst.com/api/).
+For a comprehensive list of examples, check out the [API documentation](https://api.spotinst.com/).
 
 ## Contributing
 
