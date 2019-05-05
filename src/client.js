@@ -8,6 +8,7 @@ import SubscriptionService from './services/subscription';
 import SpectrumService from './services/spectrum';
 import FunctionsService from './services/functions';
 import EndpointService from './services/endpoints';
+import MrScalerAwsService from './services/mrscaler/aws_emr'
 import debug from 'debug';
 
 export default class Client {
@@ -17,6 +18,22 @@ export default class Client {
     for (let opt of opts) {
       opt.call(this, this._config);
     }
+
+   
+    if (this._config.accountId == undefined) {
+      if (process.env.SPOTINST_ACCOUNT) {
+        this._config.accountId = process.env.SPOTINST_ACCOUNT;
+      }
+    }
+
+    if (this._config.credentials == undefined) {
+      if (process.env.SPOTINST_TOKEN) {
+        this._config.credentials = {
+          token: process.env.SPOTINST_TOKEN
+        }
+      }
+    }
+
     this.AwsGroupService = new AwsGroupService(this);
     this.AwsGroupRollService = new AwsGroupRollService(this);
     this.AwsInstanceService = new AwsInstanceService(this);
@@ -25,6 +42,7 @@ export default class Client {
     this.FunctionsService = new FunctionsService(this);
     this.SpectrumService = new SpectrumService(this);
     this.EndpointService = new EndpointService(this);
+    this.MrScalerAwsService = new MrScalerAwsService(this);
   }
 
   /**
@@ -75,6 +93,10 @@ export default class Client {
         ...options.headers,
         'Authorization': `Bearer ${this._config.credentials.token}`,
       };
+    }
+
+    if (this._config.accountId && !options.params.accountId) {
+      options.params.accountId = this._config.accountId
     }
 
     var request = new Request(options);

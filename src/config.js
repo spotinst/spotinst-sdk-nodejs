@@ -102,6 +102,17 @@ export function setToken(token) {
 }
 
 /**
+ * setAccount defines the account to operate against.
+ * @param accountId
+ * @returns {Function}
+ */
+export function setAccount(accountId) {
+  return function (config) {
+    config.accountId = accountId;
+  };
+}
+
+/**
  * setUserAgent defines the user agent.
  * @param ua
  * @returns {Function}

@@ -27,6 +27,7 @@ import { Client, config } from 'spotinst-sdk-nodejs';
 // Instantiate new client.
 const clientOpts = [
   config.setToken('foo'),
+  config.setAccount('act-XXXXXX')
 ];
 const client = new Client(...clientOpts);
 ```
@@ -86,6 +87,87 @@ client.AwsGroupService.read({id: 'sig-bar'}, (err, groups) => {
   // Do something with groups.
 });
 ```
+
+## Available Servies
+
+Services and actions are formatted as `client.SERVICE.ACTION()`
+
+**Example:**
+```
+client.AwsGroupService.list()
+  .then((groups) => {
+    console.log(groups);
+    // do something with groups
+  })
+  .catch((err) => {
+    console.error(err);
+    // do something with err
+  });
+```
+
+### AwsGroupService
+Manage Spotinst Elastigroups
+
+**Actions:**
+* create
+* read
+* list
+* update
+* delete
+* status
+
+### AwsGroupRollService
+Manage Elastigroups with AWS EMR integration
+
+**Actions:**
+* start
+* stop
+* list
+* read
+
+### AwsInstanceService
+Manage a single instance within an Elastigroup
+
+**Actions:**
+* read
+* detach
+* signal
+
+### AwsSpotService
+Describes a specific Spot Instance Request
+
+**Actions:**
+* read
+
+### SubscriptionService
+Manage Spotinst Subscriptions
+
+**Actions:**
+* create
+* read
+* list
+* update
+* delete
+
+### SpectrumService.Event
+Manage Spectrum Events
+
+**Actions:**
+* create
+* read
+* list
+* update
+* delete
+
+### MrScalerAwsService
+Manage Elastigroups with AWS EMR integration
+
+**Actions:**
+* create
+* read
+* list
+* update
+* delete
 
 ## Documentation
 
