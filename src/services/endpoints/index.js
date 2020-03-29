@@ -1,4 +1,4 @@
-import PatternService from './pattern';
+import PatternService from "./pattern";
 
 export default class EndpointService {
   constructor(client) {

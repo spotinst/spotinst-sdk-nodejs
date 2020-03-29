@@ -1,15 +1,15 @@
-import * as config from './config';
-import Request from './request';
-import AwsGroupService from './services/aws_group';
-import AwsGroupRollService from './services/aws_group_roll';
-import AwsInstanceService from './services/aws_instance';
-import AwsSpotService from './services/aws_spot';
-import SubscriptionService from './services/subscription';
-import SpectrumService from './services/spectrum';
-import FunctionsService from './services/functions';
-import EndpointService from './services/endpoints';
-import MrScalerAwsService from './services/mrscaler/aws_emr'
-import debug from 'debug';
+import * as config from "./config";
+import Request from "./request";
+import AwsGroupService from "./services/aws_group";
+import AwsGroupRollService from "./services/aws_group_roll";
+import AwsInstanceService from "./services/aws_instance";
+import AwsSpotService from "./services/aws_spot";
+import SubscriptionService from "./services/subscription";
+import SpectrumService from "./services/spectrum";
+import FunctionsService from "./services/functions";
+import EndpointService from "./services/endpoints";
+import MrScalerAwsService from "./services/mrscaler/aws_emr";
+import debug from "debug";
 
 export default class Client {
   constructor(...opts) {
@@ -19,7 +19,6 @@ export default class Client {
       opt.call(this, this._config);
     }
 
-   
     if (this._config.accountId == undefined) {
       if (process.env.SPOTINST_ACCOUNT) {
         this._config.accountId = process.env.SPOTINST_ACCOUNT;
@@ -30,7 +29,7 @@ export default class Client {
       if (process.env.SPOTINST_TOKEN) {
         this._config.credentials = {
           token: process.env.SPOTINST_TOKEN
-        }
+        };
       }
     }
 
@@ -58,7 +57,7 @@ export default class Client {
       userAgent: config.DefaultUserAgent,
       contentType: config.DefaultContentType,
       httpClient: config.DefaultHttpClient,
-      httpTimeout: config.DefaultHttpTimeout,
+      httpTimeout: config.DefaultHttpTimeout
     };
   }
 
@@ -73,11 +72,11 @@ export default class Client {
    */
   _newRequest(method, path, body, params = {}) {
     if (!method || !method.length) {
-      throw new Error('spotinst-sdk-nodejs: invalid or malformed method');
+      throw new Error("spotinst-sdk-nodejs: invalid or malformed method");
     }
 
     if (!path || !path.length) {
-      throw new Error('spotinst-sdk-nodejs: invalid or malformed path');
+      throw new Error("spotinst-sdk-nodejs: invalid or malformed path");
     }
 
     var options = {
@@ -85,18 +84,18 @@ export default class Client {
       url: `${this._config.scheme}://${this._config.apiAddress}${path}`,
       method,
       body,
-      params,
+      params
     };
 
     if (this._config.credentials) {
       options.headers = {
         ...options.headers,
-        'Authorization': `Bearer ${this._config.credentials.token}`,
+        Authorization: `Bearer ${this._config.credentials.token}`
       };
     }
 
     if (this._config.accountId && !options.params.accountId) {
-      options.params.accountId = this._config.accountId
+      options.params.accountId = this._config.accountId;
     }
 
     var request = new Request(options);
@@ -111,18 +110,19 @@ export default class Client {
    */
   _doRequest(request) {
     return new Promise((resolve, reject) => {
-      this._debug('converting to http request');
+      this._debug("converting to http request");
       const req = request._toHTTP();
       this._dumpRequest(req);
-      this._debug('calling http client');
-      return this._config.httpClient.do(req)
-        .then((res) => {
-          this._debug('promise resolved');
+      this._debug("calling http client");
+      return this._config.httpClient
+        .do(req)
+        .then(res => {
+          this._debug("promise resolved");
           this._dumpResponse(res);
           resolve(res);
         })
-        .catch((err) => {
-          this._debug('promise rejected', err);
+        .catch(err => {
+          this._debug("promise rejected", err);
           reject(err.toString());
         });
     });
@@ -138,8 +138,7 @@ export default class Client {
     return new Promise((resolve, reject) => {
       request
         .then(res => {
-          (/^2/.test('' + res.statusCode)) ?
-            resolve(res.body) : reject(res);
+          /^2/.test("" + res.statusCode) ? resolve(res.body) : reject(res);
         })
         .catch(err => reject(err));
     });
@@ -152,9 +151,8 @@ export default class Client {
    */
   _dumpRequest(request) {
     try {
-      this._debug('request:', request);
-    } catch (err) {
-    }
+      this._debug("request:", request);
+    } catch (err) {}
   }
 
   /**
@@ -164,8 +162,7 @@ export default class Client {
    */
   _dumpResponse(response) {
     try {
-      this._debug('response:', JSON.stringify(response.toJSON(), null, 2));
-    } catch (err) {
-    }
+      this._debug("response:", JSON.stringify(response.toJSON(), null, 2));
+    } catch (err) {}
   }
 }

@@ -1,6 +1,6 @@
-import {SDKName} from '../config';
-import util from '../util';
-import debug from 'debug';
+import { SDKName } from "../config";
+import util from "../util";
+import debug from "debug";
 
 export default class AwsGroupRollService {
   constructor(client) {
@@ -16,17 +16,21 @@ export default class AwsGroupRollService {
    */
   list(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.isValid('groupId', params.groupId, callback, reject)) return;
-      this._debug('initiating a new list rolls request');
-      const req = this._client._newRequest('GET', `${this._basePath}/${params.groupId}/roll`);
-      this._debug('making list rolls request');
-      this._client._requireOK(this._client._doRequest(req))
-        .then((res) => {
-          this._debug('promise resolved');
+      if (!util.isValid("groupId", params.groupId, callback, reject)) return;
+      this._debug("initiating a new list rolls request");
+      const req = this._client._newRequest(
+        "GET",
+        `${this._basePath}/${params.groupId}/roll`
+      );
+      this._debug("making list rolls request");
+      this._client
+        ._requireOK(this._client._doRequest(req))
+        .then(res => {
+          this._debug("promise resolved");
           util.resolveOnSuccess(res.response.items, callback, resolve);
         })
-        .catch((err) => {
-          this._debug('promise rejected', err);
+        .catch(err => {
+          this._debug("promise rejected", err);
           util.rejectOnFailure(err.toString(), callback, reject);
         });
     });
@@ -39,18 +43,22 @@ export default class AwsGroupRollService {
    */
   read(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.isValid('groupId', params.groupId, callback, reject)) return;
-      if (!util.isValid('rollId', params.rollId, callback, reject)) return;
-      this._debug('initiating a new read roll request, id=', params.id);
-      const req = this._client._newRequest('GET', `${this._basePath}/${params.groupId}/roll/${params.rollId}`);
-      this._debug('making read roll request');
-      this._client._requireOK(this._client._doRequest(req))
-        .then((res) => {
-          this._debug('promise resolved');
+      if (!util.isValid("groupId", params.groupId, callback, reject)) return;
+      if (!util.isValid("rollId", params.rollId, callback, reject)) return;
+      this._debug("initiating a new read roll request, id=", params.id);
+      const req = this._client._newRequest(
+        "GET",
+        `${this._basePath}/${params.groupId}/roll/${params.rollId}`
+      );
+      this._debug("making read roll request");
+      this._client
+        ._requireOK(this._client._doRequest(req))
+        .then(res => {
+          this._debug("promise resolved");
           util.resolveOnSuccess(res.response.items, callback, resolve);
         })
-        .catch((err) => {
-          this._debug('promise rejected', err);
+        .catch(err => {
+          this._debug("promise rejected", err);
           util.rejectOnFailure(err.toString(), callback, reject);
         });
     });
@@ -63,18 +71,22 @@ export default class AwsGroupRollService {
    */
   start(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.isValid('groupId', params.groupId, callback, reject)) return;
-      if (!util.isValid('rollId', params.rollId, callback, reject)) return;
-      this._debug('initiating a new start roll request, id=', params.id);
-      const req = this._client._newRequest('PUT', `${this._basePath}/${params.groupId}/roll`);
-      this._debug('making start roll request');
-      this._client._requireOK(this._client._doRequest(req))
-        .then((res) => {
-          this._debug('promise resolved');
+      if (!util.isValid("groupId", params.groupId, callback, reject)) return;
+      if (!util.isValid("rollId", params.rollId, callback, reject)) return;
+      this._debug("initiating a new start roll request, id=", params.id);
+      const req = this._client._newRequest(
+        "PUT",
+        `${this._basePath}/${params.groupId}/roll`
+      );
+      this._debug("making start roll request");
+      this._client
+        ._requireOK(this._client._doRequest(req))
+        .then(res => {
+          this._debug("promise resolved");
           util.resolveOnSuccess(res.response.items, callback, resolve);
         })
-        .catch((err) => {
-          this._debug('promise rejected', err);
+        .catch(err => {
+          this._debug("promise rejected", err);
           util.rejectOnFailure(err.toString(), callback, reject);
         });
     });
@@ -87,18 +99,22 @@ export default class AwsGroupRollService {
    */
   stop(params = {}, callback) {
     return new Promise((resolve, reject) => {
-      if (!util.isValid('groupId', params.groupId, callback, reject)) return;
-      if (!util.isValid('rollId', params.rollId, callback, reject)) return;
-      this._debug('initiating a new stop roll request, id=', params.id);
-      const req = this._client._newRequest('PUT', `${this._basePath}/${params.groupId}/roll/${params.rollId}`);
-      this._debug('making stop roll request');
-      this._client._requireOK(this._client._doRequest(req))
-        .then((res) => {
-          this._debug('promise resolved');
+      if (!util.isValid("groupId", params.groupId, callback, reject)) return;
+      if (!util.isValid("rollId", params.rollId, callback, reject)) return;
+      this._debug("initiating a new stop roll request, id=", params.id);
+      const req = this._client._newRequest(
+        "PUT",
+        `${this._basePath}/${params.groupId}/roll/${params.rollId}`
+      );
+      this._debug("making stop roll request");
+      this._client
+        ._requireOK(this._client._doRequest(req))
+        .then(res => {
+          this._debug("promise resolved");
           util.resolveOnSuccess(res.response.items, callback, resolve);
         })
-        .catch((err) => {
-          this._debug('promise rejected', err);
+        .catch(err => {
+          this._debug("promise rejected", err);
           util.rejectOnFailure(err.toString(), callback, reject);
         });
     });

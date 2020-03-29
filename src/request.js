@@ -1,5 +1,5 @@
-import {SDKName} from './config';
-import debug from 'debug';
+import { SDKName } from "./config";
+import debug from "debug";
 
 /**
  * Default request options.
@@ -7,11 +7,11 @@ import debug from 'debug';
  */
 const defaultOpts = {
   config: {},
-  method: '',
-  url: '',
+  method: "",
+  url: "",
   body: null,
   params: {},
-  headers: {},
+  headers: {}
 };
 
 export default class Request {
@@ -26,21 +26,21 @@ export default class Request {
    * @private
    */
   _toHTTP() {
-    this._debug('converting to http request');
+    this._debug("converting to http request");
     return {
       method: this._opts.method.toUpperCase(),
       uri: this._opts.url,
       headers: {
         ...this._opts.headers,
-        'Content-Type': this._opts.config.contentType,
-        'Accept': this._opts.config.contentType,
-        'User-Agent': this._opts.config.userAgent,
+        "Content-Type": this._opts.config.contentType,
+        Accept: this._opts.config.contentType,
+        "User-Agent": this._opts.config.userAgent
       },
       qs: this._opts.params,
       body: this._opts.body || this.body,
       timeout: this._opts.config.httpTimeout,
       json: true,
-      resolveWithFullResponse: true,
+      resolveWithFullResponse: true
     };
   }
 }

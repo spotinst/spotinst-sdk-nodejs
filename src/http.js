@@ -1,6 +1,6 @@
-import {SDKName} from './config';
-import request from 'request-promise';
-import debug from 'debug';
+import { SDKName } from "./config";
+import request from "request-promise";
+import debug from "debug";
 
 // HttpClient is a HTTP request client with Promise support.
 export default class HttpClient {
@@ -14,7 +14,7 @@ export default class HttpClient {
    * @returns {*}
    */
   do(req) {
-    this._debug('making http request');
+    this._debug("making http request");
     return request(req).promise();
   }
 }

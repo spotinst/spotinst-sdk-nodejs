@@ -1,5 +1,5 @@
-import * as pkg from '../package.json';
-import HttpClient from './http';
+import * as pkg from "../package.json";
+import HttpClient from "./http";
 
 // SDKName is the name of the SDK.
 export const SDKName = pkg.name;
@@ -9,23 +9,23 @@ export const SDKVersion = pkg.version;
 
 // DefaultAPIAddress is the default address of the Spotinst API.
 // It is used e.g. when initializing a new Client without a specific address.
-export const DefaultAPIAddress = 'api.spotinst.io';
+export const DefaultAPIAddress = "api.spotinst.io";
 
 // DefaultOAuthAddress is the default address of the Spotinst OAuth API.
 // It is used e.g. when initializing a new Client without a specific address.
-export const DefaultOAuthAddress = 'oauth.spotinst.io';
+export const DefaultOAuthAddress = "oauth.spotinst.io";
 
 // DefaultScheme is the default protocol scheme to use when making HTTP
 // calls.
-export const DefaultScheme = 'https';
+export const DefaultScheme = "https";
 
 // DefaultContentType is the default content type to use when making HTTP
 // calls.
-export const DefaultContentType = 'application/json';
+export const DefaultContentType = "application/json";
 
 // DefaultUserAgent is the default user agent to use when making HTTP
 // calls.
-export const DefaultUserAgent = SDKName + '/' + SDKVersion;
+export const DefaultUserAgent = SDKName + "/" + SDKVersion;
 
 // DefaultHttpClient is the default HTTP client to use when making HTTP calls.
 export const DefaultHttpClient = new HttpClient();
@@ -41,7 +41,7 @@ export const DefaultHttpTimeout = 120 * 1000;
  * @returns {Function}
  */
 export function setAPIAddress(addr) {
-  return function (config) {
+  return function(config) {
     config.apiAddress = addr;
   };
 }
@@ -52,7 +52,7 @@ export function setAPIAddress(addr) {
  * @returns {Function}
  */
 export function setOAuthAddress(addr) {
-  return function (config) {
+  return function(config) {
     config.oauthAddress = addr;
   };
 }
@@ -63,7 +63,7 @@ export function setOAuthAddress(addr) {
  * @returns {Function}
  */
 export function setScheme(scheme) {
-  return function (config) {
+  return function(config) {
     config.scheme = scheme;
   };
 }
@@ -74,7 +74,7 @@ export function setScheme(scheme) {
  * @returns {Function}
  */
 export function setHttpClient(client) {
-  return function (config) {
+  return function(config) {
     config.httpClient = client;
   };
 }
@@ -85,7 +85,7 @@ export function setHttpClient(client) {
  * @returns {Function}
  */
 export function setHttpTimeout(msec) {
-  return function (config) {
+  return function(config) {
     config.httpTimeout = msec;
   };
 }
@@ -96,8 +96,8 @@ export function setHttpTimeout(msec) {
  * @returns {Function}
  */
 export function setToken(token) {
-  return function (config) {
-    config.credentials = {token};
+  return function(config) {
+    config.credentials = { token };
   };
 }
 
@@ -107,7 +107,7 @@ export function setToken(token) {
  * @returns {Function}
  */
 export function setAccount(accountId) {
-  return function (config) {
+  return function(config) {
     config.accountId = accountId;
   };
 }
@@ -118,7 +118,7 @@ export function setAccount(accountId) {
  * @returns {Function}
  */
 function setUserAgent(ua) {
-  return function (config) {
+  return function(config) {
     config.userAgent = `${ua}+${config.userAgent}`;
   };
 }
@@ -129,7 +129,7 @@ function setUserAgent(ua) {
  * @returns {Function}
  */
 function setContentType(ct) {
-  return function (config) {
+  return function(config) {
     config.contentType = ct;
   };
 }

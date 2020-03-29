@@ -1,25 +1,23 @@
-import { Client, config } from 'spotinst-sdk-nodejs';
+import { Client, config } from "spotinst-sdk-nodejs";
 
-const client = new Client(...[
-  config.setToken('foo'),
-]);
+const client = new Client(...[config.setToken("foo")]);
 
 client.SubscriptionService.list()
-  .then((subscriptions) => {
+  .then(subscriptions => {
     console.log(subscriptions);
     // do something with subscriptions
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
     // do something with err
   });
 
-client.SubscriptionService.read({id: 'sis-foo'})
-  .then((subscriptions) => {
+client.SubscriptionService.read({ id: "sis-foo" })
+  .then(subscriptions => {
     console.log(subscriptions);
     // do something with subscriptions
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
     // do something with err
   });

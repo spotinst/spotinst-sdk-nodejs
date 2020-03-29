@@ -1,15 +1,13 @@
-import { Client, config } from 'spotinst-sdk-nodejs';
+import { Client, config } from "spotinst-sdk-nodejs";
 
-const client = new Client(...[
-  config.setToken('foo'),
-]);
+const client = new Client(...[config.setToken("foo")]);
 
-client.AwsSpotService.read({id: 'sir-foo'})
-  .then((spots) => {
+client.AwsSpotService.read({ id: "sir-foo" })
+  .then(spots => {
     console.log(spots);
     // do something with spots
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
     // do something with err
   });
