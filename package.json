@@ -1,6 +1,6 @@
 {
   "name": "spotinst-sdk-nodejs",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "Spotinst SDK for the Node.js programming language",
   "scripts": {
     "compile": "rm -rf lib; babel --presets=@babel/preset-env --out-dir=lib/ src/",
