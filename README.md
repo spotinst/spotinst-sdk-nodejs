@@ -176,3 +176,6 @@ For a comprehensive list of examples, check out the [API documentation](https://
 ## Contributing
 
 We love pull requests! Please see the [contribution guidelines](CONTRIBUTING.md).
+
+## License
+Code is licensed under the [Apache License 2.0](LICENSE). See [NOTICE.md](NOTICE.md) for complete details, including software and third-party licenses and permissions.
