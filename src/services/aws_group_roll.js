@@ -72,7 +72,6 @@ export default class AwsGroupRollService {
   start(params = {}, callback) {
     return new Promise((resolve, reject) => {
       if (!util.isValid("groupId", params.groupId, callback, reject)) return;
-      if (!util.isValid("rollId", params.rollId, callback, reject)) return;
       this._debug("initiating a new start roll request, id=", params.id);
       const req = this._client._newRequest(
         "PUT",
